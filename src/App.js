@@ -1,14 +1,18 @@
 import './App.css';
 import { Body } from './Components/Body';
 import {AuthProvider} from '../src/Utils/AuthContext'
+import { Provider } from 'react-redux';
+import appStore from './Utils/appStore';
 
   function App() {
     return (
-      <AuthProvider>
-        <div className="App">
-          <Body />
-        </div>
-      </AuthProvider>
+      <Provider store={appStore}>
+        <AuthProvider>
+          <div className="App">
+            <Body />
+          </div>
+        </AuthProvider>
+      </Provider>
     );
   }
 
