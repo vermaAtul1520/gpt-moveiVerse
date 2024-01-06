@@ -1,30 +1,34 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Header } from './Header'
 import { loginvalidate, signUpvalidate } from '../Utils/FormValidate'
+import { useAuth } from "../Utils/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export const Login = () => {
     const [isSignIn, setIsSignIn] = useState(true);
     const [isError, setIsError] = useState(null);
 
+    const { signin,signup } = useAuth();
+    const navigate = useNavigate();
+
     const email = useRef(null);
     const password = useRef(null);
     const name = useRef(null);
 
     useEffect(() => {
-        console.log("gfghjkl")
+        console.error(isError)
         if(isError?.length){
-            // console.error(isError);
-            // toast(isError,{
-            //     position: "bottom-right",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "light",
-            // });
+            toast(isError,{
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }, [isError])
 
@@ -33,42 +37,47 @@ export const Login = () => {
     }
 
     const handleSubmit = async () => {
+        let Email = email?.current?.value;
+        let Password = password?.current?.value;
         if (isSignIn) {
-            let error = loginvalidate(email?.current?.value, password?.current?.value);
+            let error = loginvalidate(Email,Password);
 
             if (error?.length) {
                 setIsError(error);
-                toast(error,{
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
-            }
+                return;
+            } 
+
+            await signin(Email,Password)
+                    .then((userInfo) => {
+                        const currentUser = userInfo.user
+                        console.log(currentUser)
+                        navigate('browse')
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setIsError(error);
+                        setIsSignIn(!isSignIn);
+                    })
         }
         else {
-            let error = signUpvalidate(name?.current?.value, email?.current?.value, password?.current?.value)
+            let error = signUpvalidate(Email,Password)
             if (error?.length) {
                 setIsError(error);
-                toast(error,{
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
+                return;
             }
+
+            await signup(Email, Password)
+                .then((userInfo) => {
+                    const user = userInfo.user;
+                    navigate('browse')
+                    console.log(user);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setIsError(error);
+                    setIsSignIn(!isSignIn)
+                })
         }
-        // name?.current?.value='';
-        // email?.current?.value='';
-        // password?.current?.value='';
     }
 
     return (
