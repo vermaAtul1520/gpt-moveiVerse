@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Header } from './Header'
 import { loginvalidate, signUpvalidate } from '../Utils/FormValidate'
 import { useAuth } from "../Utils/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export const Login = () => {
@@ -17,7 +17,6 @@ export const Login = () => {
     const name = useRef(null);
 
     useEffect(() => {
-        console.error(isError)
         if(isError?.length){
             toast(isError,{
                 position: "bottom-right",
@@ -50,11 +49,11 @@ export const Login = () => {
             await signin(Email,Password)
                     .then((userInfo) => {
                         const currentUser = userInfo.user
-                        console.log(currentUser)
+                        // console.log(currentUser)
                         navigate('browse')
                     })
                     .catch((error) => {
-                        console.log(error);
+                        // console.log(error);
                         setIsError(error);
                         setIsSignIn(!isSignIn);
                     })
@@ -70,10 +69,10 @@ export const Login = () => {
                 .then((userInfo) => {
                     const user = userInfo.user;
                     navigate('browse')
-                    console.log(user);
+                    // console.log(user);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setIsError(error);
                     setIsSignIn(!isSignIn)
                 })
