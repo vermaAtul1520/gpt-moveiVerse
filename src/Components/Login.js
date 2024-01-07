@@ -2,15 +2,18 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Header } from './Header'
 import { loginvalidate, signUpvalidate } from '../Utils/FormValidate'
 import { useAuth } from "../Utils/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import { updateProfile} from "firebase/auth";
+import {useDispatch} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
+import { addUser } from '../Utils/userSlice'
+import { auth } from '../Utils/Firebase';
 export const Login = () => {
     const [isSignIn, setIsSignIn] = useState(true);
     const [isError, setIsError] = useState(null);
 
     const { signin,signup } = useAuth();
-    const navigate = useNavigate();
+    const disPatch= useDispatch();
 
     const email = useRef(null);
     const password = useRef(null);
@@ -38,6 +41,7 @@ export const Login = () => {
     const handleSubmit = async () => {
         let Email = email?.current?.value;
         let Password = password?.current?.value;
+        let Name = name?.current?.value;
         if (isSignIn) {
             let error = loginvalidate(Email,Password);
 
@@ -48,9 +52,7 @@ export const Login = () => {
 
             await signin(Email,Password)
                     .then((userInfo) => {
-                        const currentUser = userInfo.user
-                        // console.log(currentUser)
-                        navigate('browse')
+                        // const currentUser = userInfo.user
                     })
                     .catch((error) => {
                         // console.log(error);
@@ -59,22 +61,25 @@ export const Login = () => {
                     })
         }
         else {
-            let error = signUpvalidate(Email,Password)
+            let error = signUpvalidate(Name,Email,Password)
             if (error?.length) {
                 setIsError(error);
                 return;
             }
 
-            await signup(Email, Password)
+            await signup(Email, Password,Name)
                 .then((userInfo) => {
                     const user = userInfo.user;
-                    navigate('browse')
-                    // console.log(user);
+                    updateProfile(user, {
+                        displayName: Name, 
+                        // photoURL: "https://example.com/jane-q-user/profile.jpg"
+                    }).then(() => {
+                        const { uid, email, displayName } = auth.currentUser;
+                        disPatch(addUser({ uid, email, displayName: displayName }));
+                    })
                 })
                 .catch((error) => {
-                    // console.log(error);
                     setIsError(error);
-                    setIsSignIn(!isSignIn)
                 })
         }
     }
