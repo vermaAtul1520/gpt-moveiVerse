@@ -29,16 +29,16 @@ Your app is ready to be deployed!
 
 #features...
  - login/signup
-   -login/signup form
+   - login/signup form
    - to redirect on signup page if not loggedin
 
- -Browse(after aurthentication)
-   -Header
-   -main movie
+ - Browse(after aurthentication)
+   - Header
+   - main movie
      - trailer in bg
      - title and disc
-     -Movei suggesation.....
+     - Movei suggesation.....
      
- -Netflix gpt 
+ - Netflix gpt 
      - search bar
      - movei suggesation
