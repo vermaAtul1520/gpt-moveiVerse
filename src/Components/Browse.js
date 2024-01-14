@@ -3,14 +3,22 @@ import { Header } from './Header'
 import useNowPlayingMoveis from '../Hooks/useNowPlayingMoveis'
 import MainContainer  from './MainContainer'
 import SecondryContainer from './SecondryContainer'
+import usePopulerMoveis from '../Hooks/usePopulerMoveis'
+import useTopRatedMoveis from '../Hooks/useTopRatedMoveis'
+import useUpComingMoveis from '../Hooks/useUpComingMoveis'
 
 export const Browse = () => {
-  const nowPlayingData = useNowPlayingMoveis();
+  useNowPlayingMoveis();
+  usePopulerMoveis();
+  useTopRatedMoveis();
+  useUpComingMoveis();
   return (
     <>
-      <Header />
-      <MainContainer/>
-      <SecondryContainer/>
+      <div className='bg-black'>
+        <Header />
+        <MainContainer />
+        <SecondryContainer />
+      </div>
     </>
   )
 }

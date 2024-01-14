@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 const useNowPlayingMoveis = () => {
     const disPatch = useDispatch();
     const nowPlayingMovei = async () => {
-        const data = await fetch('https://api.themoviedb.org/3/movie/now_playing?page=1', API_OPTIONS);
+        const data = await fetch('https://api.themoviedb.org/3/movie/now_playing', API_OPTIONS);
         const parsedData = await data.json();
         disPatch(addNowPlayingMoveis(parsedData?.results));
     }
