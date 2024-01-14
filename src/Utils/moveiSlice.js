@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 const moveiSlice = createSlice({
-  name: 'counter',
+  name: 'movei',
   initialState: {
     nowPlayingMoveis: null,
     trailerVideo: null,
