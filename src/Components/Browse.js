@@ -6,18 +6,24 @@ import SecondryContainer from './SecondryContainer'
 import usePopulerMoveis from '../Hooks/usePopulerMoveis'
 import useTopRatedMoveis from '../Hooks/useTopRatedMoveis'
 import useUpComingMoveis from '../Hooks/useUpComingMoveis'
+import { useSelector } from 'react-redux'
+import GptSearch from './GptSearch'
 
 export const Browse = () => {
+  const showGpt = useSelector(store=> store?.gpt?.showGptSearch)
   useNowPlayingMoveis();
   usePopulerMoveis();
   useTopRatedMoveis();
   useUpComingMoveis();
   return (
     <>
-      <div className='bg-black'>
+      <div>
         <Header />
-        <MainContainer />
-        <SecondryContainer />
+        {showGpt ? <GptSearch /> :
+          <>
+            <MainContainer />
+            <SecondryContainer />
+          </>}
       </div>
     </>
   )
