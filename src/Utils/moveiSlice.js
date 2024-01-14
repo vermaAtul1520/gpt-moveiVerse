@@ -6,7 +6,8 @@ const moveiSlice = createSlice({
   initialState:{
     nowPlayingMoveis: null,
     trailerVideo: null,
-    populerMoveis:null
+    populerMoveis:null,
+    topRatedMoveis:null
   },
   reducers: {
     addNowPlayingMoveis: (state, actions) => {
@@ -20,8 +21,12 @@ const moveiSlice = createSlice({
     addPopulerMoveis: (state, actions) => {
       state.populerMoveis = actions.payload;
     },
+
+    addtopRatedMoveis: (state, actions) => {
+      state.topRatedMoveis = actions.payload;
+    },
   },
 })
 
-export const { addNowPlayingMoveis,addtrailerVedio,addPopulerMoveis } = moveiSlice.actions
+export const { addNowPlayingMoveis,addtrailerVedio,addPopulerMoveis,addtopRatedMoveis } = moveiSlice.actions
 export default moveiSlice.reducer
