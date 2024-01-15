@@ -33,12 +33,34 @@ const GptSearchBar = () => {
         //     messages: [{ role: 'user', content: querry }],
         //     model: 'gpt-3.5-turbo',
         // });
-        const promiseArray = MOVEI_FROM_CONST?.crime?.map((movei) => {
+        let type = 'hindi';
+        if (searchText?.current?.value?.toLowerCase()?.includes('funny')) {
+            type = 'funny';
+        }
+
+        if (searchText?.current?.value?.toLowerCase()?.includes('romantice')) {
+            type = 'romantice';
+        }
+
+        if (searchText?.current?.value?.toLowerCase()?.includes('crime')) {
+            type = 'crime';
+        }
+
+        if (searchText?.current?.value?.toLowerCase()?.includes('crime')) {
+            type = 'crime';
+        }
+
+        if (searchText?.current?.value?.toLowerCase()?.includes('random')) {
+            type = 'random';
+        }
+
+        const promiseArray = MOVEI_FROM_CONST?.[type]?.map((movei) => {
             return (gptMoveis(movei));
         })
 
         const result = await Promise.all(promiseArray);
-        disPatch(addMoveiResult({moveiName:MOVEI_FROM_CONST?.crime,gptMoveis:result}));
+        searchText.current.value = null;
+        disPatch(addMoveiResult({ moveiName: MOVEI_FROM_CONST?.[type], gptMoveis: result }));
     }
 
     return (

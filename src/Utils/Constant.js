@@ -20,25 +20,49 @@ export const OPEN_AI_KEY = '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'
 
 export const MOVEI_FROM_CONST = {
   funny: [
-      "Hera Pheri",
-      "Andaz Apna Apna",
-      "Bhagam Bhag",
-      "Golmaal: Fun Unlimited",
-      "Chupke Chupke"
+    "Hera Pheri",
+    "Andaz Apna Apna",
+    "Bhagam Bhag",
+    "Golmaal: Fun Unlimited",
+    "Chupke Chupke"
   ],
   romantice: [
-      "Dilwale Dulhania Le Jayenge",
-      "Kuch Kuch Hota Hai",
-      "Jab Tak Hai Jaan",
-      "Hum Dil De Chuke Sanam",
-      "2 States"
+    "Dilwale Dulhania Le Jayenge",
+    "Kuch Kuch Hota Hai",
+    "Jab Tak Hai Jaan",
+    "Hum Dil De Chuke Sanam",
+    "2 States"
   ],
   crime: [
-      "Gangs of Wasseypur",
-      "Drishyam",
-      "Talaash",
-      "Kahaani",
-      "Special 26"
+    "Gangs of Wasseypur",
+    "Drishyam",
+    "Talaash",
+    "Kahaani",
+    "Special 26"
+  ],
+  random: [
+    'Inception',
+    'Gladiator',
+    'Jaws',
+    'Gravity',
+    'Memento',
+    'Se7en',
+    'Whiplash',
+    'Avatar',
+    'Divergent',
+    'Speed'
+  ],
+  hindi: [
+    'Dangal',
+    'PK',
+    '3 Idiots',
+    'Lagaan',
+    'Sholay',
+    'Dilwale Dulhania Le Jayenge',
+    'Queen',
+    'Gully Boy',
+    'Andhadhun',
+    'Kahaani'
   ]
 };
 
