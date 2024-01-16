@@ -50,6 +50,7 @@ const GptSearchBar = () => {
         //     model: 'gpt-3.5-turbo',
         // });
         let type = 'hindi';
+        searchText.current.value = inputValue
         if (searchText?.current?.value?.toLowerCase()?.includes('funny')) {
             type = 'funny';
         }
@@ -76,21 +77,9 @@ const GptSearchBar = () => {
 
         const result = await Promise.all(promiseArray);
         searchText.current.value = null;
+        setInputValue('')
         disPatch(addMoveiResult({ moveiName: MOVEI_FROM_CONST?.[type], gptMoveis: result }));
     }
-
-    // if (browserSupportsSpeechRecognition) {
-    //     console.log("Testing  of mic")
-    //     return <>
-    //         <div className='mt-[20%] bg-white'>
-    //             <p>Microphone: {listening ? 'on' : 'off'}</p>
-    //             <button className="bg-violet-500 hover:bg-violet-600 text-white py-2 px-4 rounded" onClick={SpeechRecognition.startListening}>Start</button>
-    //             <button className="bg-violet-500 hover:bg-violet-600 text-white py-2 px-4 rounded" onClick={SpeechRecognition.stopListening}>Stop</button>
-    //             <button className="bg-violet-500 hover:bg-violet-600 text-white py-2 px-4 rounded" onClick={resetTranscript}>Reset</button>
-    //             <p>{transcript}</p>
-    //         </div>
-    //     </>
-    // }
 
     const handleMic = async () => {
         if (listening) { 
@@ -106,7 +95,7 @@ const GptSearchBar = () => {
             <form className='w-full md:w-1/2 bg-black grid grid-cols-12' onSubmit={(e) => e.preventDefault()}>
                 <input
                     ref={searchText}
-                    className='p-3 m-3 col-span-8 md:col-span-8'
+                    className='p-3 m-3 col-span-7 md:col-span-8'
                     type='text'
                     value={inputValue}
                     placeholder={lang[language].placeHolder}
