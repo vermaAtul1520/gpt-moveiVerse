@@ -1,6 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -41,4 +38,13 @@ Your app is ready to be deployed!
      
  - Netflix gpt 
      - search bar
+       - on input text based (you can type your movei type or category system will recomend movei based on that)
+       - using mic ( using this feature you have to just speak category this will listen and search movei for you)
      - movei suggesation
+
+
+1. App is full responsible for all devices including small phone and tab too.
+
+2. Error handled app
+
+3. To show error use Toast to take care of UI
