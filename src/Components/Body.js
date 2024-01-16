@@ -5,6 +5,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import { BG_CSS } from '../Utils/Constant';
 
 export const Body = () => {
 
@@ -20,7 +21,7 @@ export const Body = () => {
     ]);
 
     return (
-        <div>
+        <div className={BG_CSS}>
             <RouterProvider router={appRouter}>
                 <Login />
                 <Browse />

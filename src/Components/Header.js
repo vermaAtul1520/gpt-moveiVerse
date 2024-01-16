@@ -47,24 +47,46 @@ export const Header = () => {
   }
 
   return (
+    // <div className="absolute top-0 z-10 w-full bg-gradient-to-b from-black to-transparent py-4 ">
+    //   <div className="container mx-auto flex justify-between items-center">
+    //     <img className="w-40" src={NETFLIX_LOG} alt="Logo" />
+    //     {user &&
+    //       <div className="flex items-center">
+    //         {showGpt && <select className='p-2 m-2 bg-gray-900 text-white' onChange={handleLanguage}>
+    //           {SUPPORTED_LANG?.map((obj) => (
+    //             <option
+    //               key={obj?.identifier}
+    //               value={obj?.identifier}
+    //             >{obj?.name}</option>)
+    //           )}
+    //         </select>}
+    //         <button onClick={handleGptSearchClick} className="bg-violet-500 hover:bg-violet-600 text-white py-2 px-4 rounded">{showGpt ? 'HomePage' : 'Gpt Search'} </button>
+    //         <button onClick={handleLogOut} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded ml-2">Logout</button>
+    //         {/* <span className="text-lg font-semibold">Your App Name</span> */}
+    //       </div>}
+    //   </div>
+    // </div>
+
     <div className="absolute top-0 z-10 w-full bg-gradient-to-b from-black to-transparent py-4">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <img className="w-40" src={NETFLIX_LOG} alt="Logo" />
-        {user &&
-          <div className="flex items-center">
-            {showGpt && <select className='p-2 m-2 bg-gray-900 text-white' onChange={handleLanguage}>
-              {SUPPORTED_LANG?.map((obj) => (
-                <option
-                  key={obj?.identifier}
-                  value={obj?.identifier}
-                >{obj?.name}</option>)
-              )}
-            </select>}
-            <button onClick={handleGptSearchClick} className="bg-violet-500 hover:bg-violet-600 text-white py-2 px-4 rounded">{showGpt ? 'HomePage' : 'Gpt Search'} </button>
-            <button onClick={handleLogOut} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded ml-2">Logout</button>
-            {/* <span className="text-lg font-semibold">Your App Name</span> */}
-          </div>}
+        <div className="flex items-center mb-2 md:mb-0">
+          {user &&
+            <div className="flex items-center ml-2">
+              {showGpt && <select className='p-2 m-2 bg-gray-900 text-white' onChange={handleLanguage}>
+                {SUPPORTED_LANG?.map((obj) => (
+                  <option
+                    key={obj?.identifier}
+                    value={obj?.identifier}
+                  >{obj?.name}</option>)
+                )}
+              </select>}
+              <button onClick={handleGptSearchClick} className="bg-violet-500 hover:bg-violet-600 text-white py-2 px-4 rounded">{showGpt ? 'HomePage' : 'Gpt Search'} </button>
+              <button onClick={handleLogOut} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded ml-2">Logout</button>
+            </div>}
+        </div>
       </div>
     </div>
+
   )
 }
