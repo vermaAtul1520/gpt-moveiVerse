@@ -8,7 +8,6 @@ import {useDispatch} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
 import { addUser } from '../Utils/userSlice'
 import { auth } from '../Utils/Firebase';
-import { BG_URL } from '../Utils/Constant';
 export const Login = () => {
     const [isSignIn, setIsSignIn] = useState(true);
     const [isError, setIsError] = useState(null);
@@ -88,11 +87,8 @@ export const Login = () => {
     return (
         <div>
             <Header />
-            <div className="absolute">
-                <img src={BG_URL}
-                    alt='Logo' />
-            </div>
-            <form onSubmit={(e) => e.preventDefault()} className="absolute w-3/12 bg-black text-white mt-36 mx-auto right-0 left-0 p-12 bg-opacity-90">
+            
+            <form onSubmit={(e) => e.preventDefault()} className="absolute w-[90%] md:w-3/12 bg-black text-white mt-36 mx-auto right-0 left-0 p-12 bg-opacity-90">
                 <h1 className="font-bold text-2xl my-2">{isSignIn ? 'Sign-In' : 'Sign-Up'}</h1>
                 {!isSignIn &&
                     <input

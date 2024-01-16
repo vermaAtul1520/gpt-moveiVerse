@@ -10,7 +10,7 @@ const MainContainer = () => {
     const {original_title, overview ,id} = mainMovei;
 
     return (
-        <div>
+        <div className='pt-[30%] md:pt-0 bg-black'>
             <VideoTitle
                 title={original_title}
                 overview={overview}
