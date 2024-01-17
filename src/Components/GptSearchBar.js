@@ -20,11 +20,10 @@ const GptSearchBar = () => {
 
     const disPatch = useDispatch();
     const language = useSelector((store) => store?.config?.lang);
-    const searchText = useRef(null);
     const [inputValue, setInputValue] = useState('');
 
     useEffect(()=>{
-        setInputValue(transcript)
+        setInputValue(transcript);
     },[transcript])
 
     const gptMoveis = async (movei) => {
@@ -38,9 +37,8 @@ const GptSearchBar = () => {
     }
 
     const handleGptSearch = async () => {
-        // console.log("gfdfghjkl",searchText?.current?.value);
         const querry = "Act as a movei recomendation system and suggest some movei for querry " +
-            searchText?.current?.value +
+           inputValue +
             " give me result comma seprated for example Gadar,Commando,Mela,Animal,Dulhe raja"
             ;
 
@@ -50,24 +48,24 @@ const GptSearchBar = () => {
         //     model: 'gpt-3.5-turbo',
         // });
         let type = 'hindi';
-        searchText.current.value = inputValue
-        if (searchText?.current?.value?.toLowerCase()?.includes('funny')) {
+    
+        if (inputValue?.toLowerCase()?.includes('funny')) {
             type = 'funny';
         }
 
-        if (searchText?.current?.value?.toLowerCase()?.includes('romantice')) {
+        if (inputValue?.toLowerCase()?.includes('romantice')) {
             type = 'romantice';
         }
 
-        if (searchText?.current?.value?.toLowerCase()?.includes('crime')) {
+        if (inputValue?.toLowerCase()?.includes('crime')) {
             type = 'crime';
         }
 
-        if (searchText?.current?.value?.toLowerCase()?.includes('crime')) {
+        if (inputValue?.toLowerCase()?.includes('crime')) {
             type = 'crime';
         }
 
-        if (searchText?.current?.value?.toLowerCase()?.includes('random')) {
+        if (inputValue?.toLowerCase()?.includes('random')) {
             type = 'random';
         }
 
@@ -76,7 +74,6 @@ const GptSearchBar = () => {
         })
 
         const result = await Promise.all(promiseArray);
-        searchText.current.value = null;
         setInputValue('')
         disPatch(addMoveiResult({ moveiName: MOVEI_FROM_CONST?.[type], gptMoveis: result }));
     }
@@ -94,10 +91,12 @@ const GptSearchBar = () => {
         <div className='pt-[45%] md:pt-[10%] flex justify-center align-item-center'>
             <form className='w-full md:w-1/2 bg-black grid grid-cols-12' onSubmit={(e) => e.preventDefault()}>
                 <input
-                    ref={searchText}
                     className='p-3 m-3 col-span-7 md:col-span-8'
                     type='text'
                     value={inputValue}
+                    onChange={(e) => {
+                        setInputValue(e.target.value);
+                    }}
                     placeholder={lang[language].placeHolder}
                 />
                 {browserSupportsSpeechRecognition &&
