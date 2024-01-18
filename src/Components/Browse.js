@@ -8,7 +8,6 @@ import useTopRatedMoveis from '../Hooks/useTopRatedMoveis'
 import useUpComingMoveis from '../Hooks/useUpComingMoveis'
 import { useSelector } from 'react-redux'
 import GptSearch from './GptSearch'
-import { BG_CSS } from '../Utils/Constant'
 
 export const Browse = () => {
   const showGpt = useSelector(store=> store?.gpt?.showGptSearch)
@@ -18,7 +17,7 @@ export const Browse = () => {
   useUpComingMoveis();
   return (
     <>
-      <div className={BG_CSS}>
+      <div>
         <Header />
         {showGpt ? <GptSearch /> :
           <>
