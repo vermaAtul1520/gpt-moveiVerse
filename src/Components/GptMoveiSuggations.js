@@ -8,7 +8,7 @@ const GptMoveiSuggations = () => {
   if (!moveiName) return null;
 
   return (
-    <div className='"p-4 mx-4 mt-4 sm:p-2 sm:mx-2" text-white bg-black bg-opacity-90 rounded-lg'>
+    <div className='"p-4 mx-4 mt-4 sm:p-2 sm:mx-2" text-white bg-black bg-opacity-70 rounded-lg'>
       <div>
         {moveiName?.map((movei, idx) => {
           return (
