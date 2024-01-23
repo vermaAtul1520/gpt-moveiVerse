@@ -5,7 +5,8 @@ const gptSlice = createSlice({
     initialState: {
         showGptSearch: false,
         gptMoveis: null,
-        moveiName: null
+        moveiName: null,
+        loading: null
     },
     reducers: {
         toggleGptSearchView: (state, actions) => {
@@ -16,9 +17,13 @@ const gptSlice = createSlice({
             const { moveiName, gptMoveis } = actions.payload;
             state.moveiName = moveiName;
             state.gptMoveis = gptMoveis;
+        },
+
+        setLoading: (state, actions) => {
+            state.loading = actions.payload;
         }
     },
 })
 
-export const { toggleGptSearchView, addMoveiResult } = gptSlice.actions
+export const { toggleGptSearchView, addMoveiResult, setLoading } = gptSlice.actions
 export default gptSlice.reducer
