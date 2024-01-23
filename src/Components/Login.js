@@ -4,12 +4,15 @@ import { loginvalidate, signUpvalidate } from '../Utils/FormValidate'
 import { useAuth } from "../Utils/AuthContext";
 import { ToastContainer, toast } from 'react-toastify';
 import { updateProfile} from "firebase/auth";
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
 import { addUser } from '../Utils/userSlice'
 import { auth } from '../Utils/Firebase';
+import { setLoading } from '../Utils/gptSlice';
+import { Loader } from './Loader';
 
 export const Login = () => {
+    const { loading } = useSelector(store => store?.gpt);
     const [isSignIn, setIsSignIn] = useState(true);
     const [isError, setIsError] = useState(null);
 
@@ -40,6 +43,7 @@ export const Login = () => {
     }
 
     const handleSubmit = async () => {
+        disPatch(setLoading(true));
         let Email = email?.current?.value;
         let Password = password?.current?.value;
         let Name = name?.current?.value;
@@ -83,50 +87,57 @@ export const Login = () => {
                     setIsError(error);
                 })
         }
+        disPatch(setLoading(false));
     }
 
     return (
-        <div className='h-screen'>
-            <Header />
-            
-            <form onSubmit={(e) => e.preventDefault()} className="absolute w-[90%] md:w-3/12 bg-black text-white mt-36 mx-auto right-0 left-0 p-12 bg-opacity-90">
-                <h1 className="font-bold text-2xl my-2">{isSignIn ? 'Sign-In' : 'Sign-Up'}</h1>
-                {!isSignIn &&
-                    <input
-                        ref={name}
-                        type='text'
-                        placeholder='Name'
-                        className="my-2 p-3 w-full bg-gray-700">
-                    </input>}
-                <input
-                    ref={email}
-                    type='text'
-                    placeholder='Email adress'
-                    className="my-2 p-3 w-full bg-gray-700">
-                </input>
-                <input
-                    ref={password}
-                    type='password'
-                    placeholder='Password'
-                    className="my-2 p-3 w-full bg-gray-700">
-                </input>
-                <button onClick={handleSubmit} className="p-4 my-3 bg-red-700 w-full">{isSignIn ? 'Sign-In' : 'Sign-Up'}</button>
-                <p className="cursor-pointer" onClick={toogleSignIn}>
-                    {isSignIn ? 'New user ? Sign Up now' : 'Already registered ? Sign In now'}
-                </p>
-                <ToastContainer
-                    position="bottom-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
-            </form>
-        </div>
+        <>
+            {!loading ?
+                <div className='h-screen'>
+                    <Header />
+
+                    <form onSubmit={(e) => e.preventDefault()} className="absolute w-[90%] md:w-3/12 bg-black text-white mt-36 mx-auto right-0 left-0 p-12 bg-opacity-90">
+                        <h1 className="font-bold text-2xl my-2">{isSignIn ? 'Sign-In' : 'Sign-Up'}</h1>
+                        {!isSignIn &&
+                            <input
+                                ref={name}
+                                type='text'
+                                placeholder='Name'
+                                className="my-2 p-3 w-full bg-gray-700">
+                            </input>}
+                        <input
+                            ref={email}
+                            type='text'
+                            placeholder='Email adress'
+                            className="my-2 p-3 w-full bg-gray-700">
+                        </input>
+                        <input
+                            ref={password}
+                            type='password'
+                            placeholder='Password'
+                            className="my-2 p-3 w-full bg-gray-700">
+                        </input>
+                        <button onClick={handleSubmit} className="p-4 my-3 bg-red-700 w-full">{isSignIn ? 'Sign-In' : 'Sign-Up'}</button>
+                        <p className="cursor-pointer" onClick={toogleSignIn}>
+                            {isSignIn ? 'New user ? Sign Up now' : 'Already registered ? Sign In now'}
+                        </p>
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                        />
+                    </form>
+                </div> :
+                <div className='h-screen pt-[18%]'>
+                    <Loader />
+                </div>}
+        </>
     )
 }
