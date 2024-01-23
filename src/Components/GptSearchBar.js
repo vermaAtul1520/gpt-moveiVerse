@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react';
 import openai from '../Utils/openAi';
 import { API_OPTIONS, MOVEI_FROM_CONST, toSetSearchInLocal } from '../Utils/Constant';
-import { addMoveiResult } from '../Utils/gptSlice';
+import { addMoveiResult, setLoading } from '../Utils/gptSlice';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { CiMicrophoneOff } from "react-icons/ci";
 import { CiMicrophoneOn } from "react-icons/ci";
 import SearchHistory from './SearchHistory';
+import { Loader } from './Loader';
 
 const GptSearchBar = () => {
     const {
@@ -23,7 +24,7 @@ const GptSearchBar = () => {
     const language = useSelector((store) => store?.config?.lang);
     const [inputValue, setInputValue] = useState('');
     const [focus, setFocous] = useState(false);
-
+    const { loading } = useSelector(store => store?.gpt);
     useEffect(() => {
         setInputValue(transcript);
     }, [transcript])
@@ -40,11 +41,12 @@ const GptSearchBar = () => {
 
     const handleGptSearch = async () => {
         toSetSearchInLocal(inputValue);
+        disPatch(setLoading(true));
         const querry = "Act as a movei recomendation system and suggest some movei for querry " +
             inputValue +
             " give me result comma seprated for example Gadar,Commando,Mela,Animal,Dulhe raja"
             ;
-
+// NOTE :---- Open Ai's api remove free acess thats why the response is not ai genrated its hardcoded.
         // gpt search......
         // const gptResults = await openai.chat.completions.create({
         //     messages: [{ role: 'user', content: querry }],
@@ -80,6 +82,10 @@ const GptSearchBar = () => {
         setInputValue('')
         setFocous(false)
         disPatch(addMoveiResult({ moveiName: MOVEI_FROM_CONST?.[type], gptMoveis: result }));
+// added the timeout for just good user experince after removing the Open Ai part...
+        setTimeout(()=>{
+            disPatch(setLoading(false));
+        },1000);
     }
 
     const handleMic = async () => {
@@ -126,6 +132,9 @@ const GptSearchBar = () => {
                 handleGptSearch={handleGptSearch}
                 setInputValue={setInputValue}
             />}
+            {loading && <div className='w-screen'>
+                <Loader />
+            </div>}
         </div>
     )
 }
