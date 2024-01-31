@@ -1,3 +1,4 @@
+<img width="1440" alt="Screenshot 2024-02-01 at 2 57 46 AM" src="https://github.com/vermaAtul1520/gpt-moveiVerse/assets/87474368/06aaace3-8c7f-4283-820e-7841a756c298">
 
 ## Available Scripts
 
